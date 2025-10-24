@@ -102,7 +102,7 @@ public class Tarro {
 
     /**
      * Agrega ingrediente al stack y suma puntos si es bueno
-     */
+
     public void agregarIngrediente(Ingrediente ing) {
         if (stack.size() < maxIngredients) {
             stack.add(ing);
@@ -117,10 +117,10 @@ public class Tarro {
             puntos -= 3;
         }
     }
-
+     */
     /**
      * Cierra el sandwich al recibir pan superior y aplica puntaje total
-     */
+
     public void closeSandwich() {
         if (stack.size() <= 1) return; // nada que cerrar
 
@@ -142,7 +142,7 @@ public class Tarro {
         currentHeight = 0;
         recalcularHitbox();
     }
-
+     */
     private void recalcularHitbox() {
         bucket.height = baseHeight + currentHeight;
     }
