@@ -19,12 +19,10 @@ public abstract class Ingrediente {
         this.velocidadCaida = 200; // 
     }
 
-    // Método concreto que las subclases heredan
     public void actualizarPosicion(float delta) {
         area.y -= velocidadCaida * delta;
     }
 
-    // Método concreto que las subclases heredan
     public void dibujar(SpriteBatch batch) {
         batch.draw(textura, area.x, area.y);
     }

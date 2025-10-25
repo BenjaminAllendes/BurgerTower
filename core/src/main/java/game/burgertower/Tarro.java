@@ -29,13 +29,12 @@ public class Tarro {
 
     // Pila de ingredientes
     private List<Ingrediente> stack;
-    private float baseHeight = 64;         // Altura del pan inferior
+    private float baseHeight = 30f;        // Altura del pan inferior
     private float ingredientHeight = 64;   // Altura de cada ingrediente
     private float currentHeight = 0;       // Altura total del sandwich
-    private float penaltyFactor = 0.15f;   // Penalización por sandwich alto
     private int sandwichCount = 0;
     private int maxIngredients = 10;       // Limite de ingredientes por sandwich
-
+    private float alturaVisibleIngrediente = 20f;
     // ==================== Constructor ====================
     public Tarro(Texture tex, Sound sonidoHerido) {
         this.bucketImage = tex;
@@ -59,7 +58,6 @@ public class Tarro {
         bucket.width = 64;
         bucket.height = baseHeight;
         stack.clear();
-        stack.add(new PanInferior()); // Pan inferior inicial
         currentHeight = 0;
     }
 
@@ -80,17 +78,21 @@ public class Tarro {
             if (tiempoHerido <= 0) herido = false;
         }
 
-        // Dibuja pan inferior
+        // 1. Dibuja el pan inferior (el jugador)
         batch.draw(bucketImage, bucket.x, bucket.y + offsetY);
 
-        // Dibuja ingredientes apilados
-        float yActual = bucket.y + baseHeight;
-        for (Ingrediente ing : stack) {
-            ing.dibujar(batch);
-            yActual += ingredientHeight;
-        }
-    }
+        // 2. Dibuja el stack de ingredientes
+        //    Comienza a dibujar justo encima del pan (baseHeight)
+        float yActual = bucket.y + baseHeight; 
 
+        for (Ingrediente ing : stack) {
+            // Dibuja la textura del ingrediente en la posición del stack
+            batch.draw(ing.getTextura(), bucket.x, yActual + offsetY);
+
+            // Incrementa la altura para el *siguiente* ingrediente
+            yActual += alturaVisibleIngrediente;
+        }
+    }    
     /**
      * Detecta colisión con un ingrediente e invoca su interacción
      */
@@ -102,11 +104,11 @@ public class Tarro {
 
     /**
      * Agrega ingrediente al stack y suma puntos si es bueno
-
+	*/
     public void agregarIngrediente(Ingrediente ing) {
         if (stack.size() < maxIngredients) {
             stack.add(ing);
-            currentHeight += ingredientHeight;
+            currentHeight += alturaVisibleIngrediente;
             recalcularHitbox();
 
             if (ing instanceof IngredienteBueno) {
@@ -117,10 +119,10 @@ public class Tarro {
             puntos -= 3;
         }
     }
-     */
+     
     /**
      * Cierra el sandwich al recibir pan superior y aplica puntaje total
-
+	 */
     public void closeSandwich() {
         if (stack.size() <= 1) return; // nada que cerrar
 
@@ -131,18 +133,16 @@ public class Tarro {
             }
         }
 
-        float penalizacion = 1 + penaltyFactor * (stack.size() - 1);
-        int puntosGanados = Math.max(1, (int)(valorBase / penalizacion));
+        int puntosGanados = valorBase ;
         puntos += puntosGanados;
         sandwichCount++;
 
         // Reinicia stack con pan inferior
         stack.clear();
-        stack.add(new PanInferior());
         currentHeight = 0;
         recalcularHitbox();
     }
-     */
+    
     private void recalcularHitbox() {
         bucket.height = baseHeight + currentHeight;
     }
@@ -156,7 +156,6 @@ public class Tarro {
 
     public void reset() {
         stack.clear();
-        stack.add(new PanInferior());
         currentHeight = 0;
         recalcularHitbox();
     }
