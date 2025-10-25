@@ -73,7 +73,7 @@ public class Tarro {
     public void dibujar(SpriteBatch batch) {
         float offsetY = 0;
         if (herido) {
-            offsetY = MathUtils.random(-5, 5);
+            offsetY = MathUtils.random(-10, 10);
             tiempoHerido--;
             if (tiempoHerido <= 0) herido = false;
         }
@@ -83,7 +83,7 @@ public class Tarro {
 
         // 2. Dibuja el stack de ingredientes
         //    Comienza a dibujar justo encima del pan (baseHeight)
-        float yActual = bucket.y + baseHeight; 
+        float yActual = bucket.y + baseHeight;
 
         for (Ingrediente ing : stack) {
             // Dibuja la textura del ingrediente en la posición del stack
@@ -92,15 +92,8 @@ public class Tarro {
             // Incrementa la altura para el *siguiente* ingrediente
             yActual += alturaVisibleIngrediente;
         }
-    }    
-    /**
-     * Detecta colisión con un ingrediente e invoca su interacción
-     */
-    public void catchIngredient(Ingrediente ing) {
-        if (ing instanceof Interactuable) {
-            ((Interactuable) ing).interactuarCon(this);
-        }
     }
+
 
     /**
      * Agrega ingrediente al stack y suma puntos si es bueno
@@ -111,15 +104,13 @@ public class Tarro {
             currentHeight += alturaVisibleIngrediente;
             recalcularHitbox();
 
-            if (ing instanceof IngredienteBueno) {
-                puntos += ((IngredienteBueno) ing).getValor();
-            }
+
         } else {
             // Penalización por sandwich demasiado alto
             puntos -= 3;
         }
     }
-     
+
     /**
      * Cierra el sandwich al recibir pan superior y aplica puntaje total
 	 */
@@ -142,7 +133,7 @@ public class Tarro {
         currentHeight = 0;
         recalcularHitbox();
     }
-    
+
     private void recalcularHitbox() {
         bucket.height = baseHeight + currentHeight;
     }
@@ -167,4 +158,14 @@ public class Tarro {
     public boolean estaVivo() {
         return vidas > 0;
     }
+
+
+    public void reiniciar() {
+        this.vidas = 3;
+        this.puntos = 0;
+        this.bucket.x = 368; // posición inicial centrada aprox.
+        this.bucket.y = 20;
+        stack.clear();
+    }
+
 }
