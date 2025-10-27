@@ -26,6 +26,9 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	   private Texture texCarne;
 	   private Texture texMalo;
 	   private Texture texPanSup;
+	   private Texture texTocino;
+	   private Texture texTomate;
+	   private Texture texQueso;
 
 	   @Override
 	    public void create() {
@@ -37,7 +40,10 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	        texCarne = new Texture(Gdx.files.internal("carne.png"));
 	        texMalo = new Texture(Gdx.files.internal("malo.png"));
 	        texPanSup = new Texture(Gdx.files.internal("pan_superior.png"));
-
+	        texTocino = new Texture(Gdx.files.internal("tocino.png")) ;
+	        texTomate = new Texture(Gdx.files.internal("tomate.png")) ;
+	        texQueso = new Texture(Gdx.files.internal("queso.png")) ;
+	        
 	        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	        Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
@@ -45,7 +51,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	        tarro = new Tarro(texPanInf, hurtSound);
 	        tarro.crear();
 
-	        nivel = new Nivel(texLechuga, texCarne, texMalo, texPanSup, dropSound, rainMusic);
+	        nivel = new Nivel(texLechuga, texCarne, texMalo, texPanSup, texTocino, texTomate, texQueso, dropSound, rainMusic);
 	        nivel.crear();
 
 	        camera = new OrthographicCamera();

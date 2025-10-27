@@ -27,6 +27,9 @@ public class Nivel {
     private Texture texCarne;
     private Texture texMalo;
     private Texture texPanSup;
+    private Texture texTocino;
+    private Texture texTomate;
+    private Texture texQueso;
 
     private Sound dropSound;
     private Music rainMusic;
@@ -37,11 +40,15 @@ public class Nivel {
 
 
     // Constructor actualizado para recibir las nuevas texturas
-    public Nivel(Texture texLechuga, Texture texCarne, Texture texMalo, Texture texPanSup, Sound ss, Music mm) {
+    public Nivel(Texture texLechuga, Texture texCarne, Texture texMalo, Texture texPanSup,
+    		Texture texTocino, Texture texTomate, Texture texQueso, Sound ss, Music mm) {
         this.texLechuga = texLechuga;
         this.texCarne = texCarne;
         this.texMalo = texMalo;
         this.texPanSup = texPanSup;
+        this.texTocino = texTocino;
+        this.texTomate = texTomate;
+        this.texQueso = texQueso;
 
         this.rainMusic = mm;
         this.dropSound = ss;
@@ -64,28 +71,38 @@ public class Nivel {
     // Método actualizado para crear INGREDIENTES
     private void crearIngrediente() {
         Ingrediente nuevoIngrediente;
-        int tipo = MathUtils.random(1, 10);
+        int tipo = MathUtils.random(1, 10); // Random del 1 al 10
 
         // Timer de 15 segundos para el pan DE ARRIBA
         if(TimeUtils.nanoTime() - lastBreadTime > 15000000000L) {
-            nuevoIngrediente = new PanSuperior(texPanSup); // <-- CORRECTO
+            nuevoIngrediente = new PanSuperior(texPanSup); 
             lastBreadTime = TimeUtils.nanoTime();
         }
-        // 20% de chance de ser malo
+        // 20% de chance de ser malo (tipos 1, 2)
         else if (tipo <= 2) {
             nuevoIngrediente = new IngredienteMalo(texMalo);
         }
-        // 40% de chance de ser carne
+        // 20% de chance de ser carne (tipos 3, 4)
+        else if (tipo <= 4) {
+            nuevoIngrediente = new IngredienteBueno(texCarne, 20); // 20 puntos
+        }
+        // 20% de chance de ser lechuga (tipos 5, 6)
         else if (tipo <= 6) {
-            nuevoIngrediente = new IngredienteBueno(texCarne, 20);
+            nuevoIngrediente = new IngredienteBueno(texLechuga, 10); // 10 puntos
         }
-        // 40% de chance de ser lechuga
+        // 10% de chance de ser tocino (tipo 7)
+        else if (tipo == 7) {
+            nuevoIngrediente = new IngredienteBueno(texTocino, 15); // 15 puntos
+        }
+        // 10% de chance de ser queso (tipo 8)
+        else if (tipo == 8) {
+            nuevoIngrediente = new IngredienteBueno(texQueso, 15); // 15 puntos
+        }
+        // 20% de chance de ser tomate (tipos 9, 10)
         else {
-            nuevoIngrediente = new IngredienteBueno(texLechuga, 10);
+            nuevoIngrediente = new IngredienteBueno(texTomate, 10); // 10 puntos
         }
 
-
-        // (Aquí no debe haber ninguna lógica que cree un texPanInf)
 
         nuevoIngrediente.getArea().x = MathUtils.random(0, 800 - 64);
         nuevoIngrediente.getArea().y = 480;
