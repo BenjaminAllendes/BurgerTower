@@ -10,8 +10,8 @@ public class IngredienteMalo extends Ingrediente implements Interactuable {
     }
 
     @Override
-    public void interactuarCon(Tarro tarro) {
-        tarro.dañar();
-        tarro.reset();
+    public void interactuarCon(Jugador jugador) {
+        jugador.dañar();
+        jugador.reset();
     }
 }

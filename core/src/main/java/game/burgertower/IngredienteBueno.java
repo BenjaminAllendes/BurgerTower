@@ -16,7 +16,7 @@ public class IngredienteBueno extends Ingrediente implements Interactuable {
     }
 
     @Override
-    public void interactuarCon(Tarro tarro) {
-        tarro.agregarIngrediente(this);
+    public void interactuarCon(Jugador jugador) {
+        jugador.agregarIngrediente(this);
     }
 }

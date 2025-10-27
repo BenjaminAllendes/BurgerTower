@@ -10,8 +10,8 @@ public class PanSuperior extends Ingrediente implements Interactuable {
     }
 
     @Override
-    public void interactuarCon(Tarro tarro) {
-        // Al chocar, le decimos al tarro que "cierre" el sándwich
-        tarro.closeSandwich();
+    public void interactuarCon(Jugador jugador) {
+        // Al chocar, le decimos al jugador que "cierre" el sándwich
+        jugador.closeSandwich();
     }
 }

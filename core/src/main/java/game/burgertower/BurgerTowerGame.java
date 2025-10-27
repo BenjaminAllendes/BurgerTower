@@ -18,7 +18,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	   private SpriteBatch batch;
 	   private BitmapFont font;
 
-	   private Tarro tarro;
+	   private Jugador jugador;
 	   private Nivel nivel;
 
 	   private Texture texPanInf;
@@ -43,13 +43,13 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	        texTocino = new Texture(Gdx.files.internal("tocino.png")) ;
 	        texTomate = new Texture(Gdx.files.internal("tomate.png")) ;
 	        texQueso = new Texture(Gdx.files.internal("queso.png")) ;
-	        
+
 	        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 	        Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 
-	        tarro = new Tarro(texPanInf, hurtSound);
-	        tarro.crear();
+	        jugador = new Jugador(texPanInf, hurtSound);
+	        jugador.crear();
 
 	        nivel = new Nivel(texLechuga, texCarne, texMalo, texPanSup, texTocino, texTomate, texQueso, dropSound, rainMusic);
 	        nivel.crear();
@@ -68,18 +68,18 @@ public class BurgerTowerGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		//dibujar textos
-		font.draw(batch, "Gotas totales: " + tarro.getPuntos(), 5, 475);
-		font.draw(batch, "Vidas : " + tarro.getVidas(), 720, 475);
+		font.draw(batch, "Puntos totales: " + jugador.getPuntos(), 5, 475);
+		font.draw(batch, "Vidas : " + jugador.getVidas(), 720, 475);
 
-		if (!tarro.estaHerido()) {
-			// movimiento del tarro desde teclado
-	        tarro.actualizarMovimiento();
+		if (!jugador.estaHerido()) {
+			// movimiento del jugador desde teclado
+	        jugador.actualizarMovimiento();
 			// caida de la lluvia
-	        nivel.actualizarMovimiento(tarro);
+	        nivel.actualizarMovimiento(jugador);
 		}
 
-		tarro.dibujar(batch);
-        nivel.actualizarDibujoLluvia(batch, tarro);
+		jugador.dibujar(batch);
+        nivel.actualizarDibujoLluvia(batch, jugador);
 
 
 		batch.end();
@@ -88,7 +88,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-	      tarro.destruir();
+	      jugador.destruir();
           nivel.destruir();
 	      batch.dispose();
 	      font.dispose();

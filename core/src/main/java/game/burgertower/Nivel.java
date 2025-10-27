@@ -75,7 +75,7 @@ public class Nivel {
 
         // Timer de 15 segundos para el pan DE ARRIBA
         if(TimeUtils.nanoTime() - lastBreadTime > 15000000000L) {
-            nuevoIngrediente = new PanSuperior(texPanSup); 
+            nuevoIngrediente = new PanSuperior(texPanSup);
             lastBreadTime = TimeUtils.nanoTime();
         }
         // 20% de chance de ser malo (tipos 1, 2)
@@ -111,13 +111,13 @@ public class Nivel {
         lastDropTime = TimeUtils.nanoTime();
     }
     // Método de actualización totalmente refactorizado
-    public void actualizarMovimiento(Tarro tarro) {
+    public void actualizarMovimiento(Jugador jugador) {
 
         if (gameOver) return; // si terminó el juego, no seguir
         // generar más ingredientes
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) crearIngrediente(); // 1 por segundo
 
-        // revisar si los ingredientes cayeron al suelo o chocaron con el tarro
+        // revisar si los ingredientes cayeron al suelo o chocaron con el jugador
         for (int i = 0; i < ingredientesCaen.size; i++) {
             Ingrediente ing = ingredientesCaen.get(i);
 
@@ -129,10 +129,10 @@ public class Nivel {
                 ingredientesCaen.removeIndex(i);
             }
 
-            // 3. Choca con el tarro
-            if (ing.getArea().overlaps(tarro.getArea())) {
+            // 3. Choca con el jugador
+            if (ing.getArea().overlaps(jugador.getArea())) {
 
-                ((Interactuable) ing).interactuarCon(tarro);
+                ((Interactuable) ing).interactuarCon(jugador);
 
                 if (ing instanceof IngredienteBueno) {
                     dropSound.play();
@@ -142,7 +142,7 @@ public class Nivel {
             }
 
             //  DETECTAR GAME OVER
-            if (tarro.getVidas() <= 0) {
+            if (jugador.getVidas() <= 0) {
                 gameOver = true;
                 rainMusic.stop();
             }
@@ -151,25 +151,25 @@ public class Nivel {
     }
 
     // Método de dibujo actualizado
-    public void actualizarDibujoLluvia(SpriteBatch batch, Tarro tarro) {
+    public void actualizarDibujoLluvia(SpriteBatch batch, Jugador jugador) {
         for (Ingrediente ing : ingredientesCaen) {
             ing.dibujar(batch);
         }
         if (gameOver) {
             font.draw(batch, "¡JUEGO TERMINADO!", 290, 300);
-            font.draw(batch, "PUNTAJE: " + tarro.getPuntos(), 330, 260);
+            font.draw(batch, "PUNTAJE: " + jugador.getPuntos(), 330, 260);
             font.draw(batch, "Presiona R para reiniciar", 280, 200);
 
             // Si se presiona R, reiniciar el juego
             if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-                reiniciar(tarro);
+                reiniciar(jugador);
             }
         }
     }
 
-    private void reiniciar(Tarro tarro) {
+    private void reiniciar(Jugador jugador) {
         ingredientesCaen.clear();
-        tarro.reiniciar();
+        jugador.reiniciar();
         gameOver = false;
         rainMusic.play();
     }

@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase Tarro: representa el "plato" del jugador con el pan inferior.
+ * Clase Jugador: representa el "plato" del jugador con el pan inferior.
  * Controla stack de ingredientes, puntaje, vidas y colisiones.
  */
-public class Tarro {
+public class Jugador {
 
     private Rectangle bucket;              // Área de colisión del pan inferior
     private Texture bucketImage;           // Textura del pan inferior
@@ -33,10 +33,10 @@ public class Tarro {
     private float ingredientHeight = 64;   // Altura de cada ingrediente
     private float currentHeight = 0;       // Altura total del sandwich
     private int sandwichCount = 0;
-    private int maxIngredients = 10;       // Limite de ingredientes por sandwich
+    private int maxIngredients = 17;       // Limite de ingredientes por sandwich
     private float alturaVisibleIngrediente = 20f;
     // ==================== Constructor ====================
-    public Tarro(Texture tex, Sound sonidoHerido) {
+    public Jugador(Texture tex, Sound sonidoHerido) {
         this.bucketImage = tex;
         this.sonidoHerido = sonidoHerido;
         this.stack = new ArrayList<>();
@@ -105,9 +105,6 @@ public class Tarro {
             recalcularHitbox();
 
 
-        } else {
-            // Penalización por sandwich demasiado alto
-            puntos -= 3;
         }
     }
 
