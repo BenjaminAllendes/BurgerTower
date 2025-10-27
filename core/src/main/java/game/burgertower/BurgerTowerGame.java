@@ -68,7 +68,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		//dibujar textos
-		font.draw(batch, "Puntos totales: " + jugador.getPuntos(), 5, 475);
+		font.draw(batch, "Puntos: " + jugador.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + jugador.getVidas(), 720, 475);
 
 		if (!jugador.estaHerido()) {
