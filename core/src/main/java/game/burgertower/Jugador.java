@@ -29,12 +29,11 @@ public class Jugador {
 
     // Pila de ingredientes
     private List<Ingrediente> stack;
-    private float baseHeight = 30f;        // Altura del pan inferior
-    private float ingredientHeight = 64;   // Altura de cada ingrediente
+    private float baseHeight = 25f;        // Altura del pan inferior
     private float currentHeight = 0;       // Altura total del sandwich
     private int sandwichCount = 0;
     private int maxIngredients = 17;       // Limite de ingredientes por sandwich
-    private float alturaVisibleIngrediente = 20f;
+    private float alturaVisibleIngrediente = 18f;
     // ==================== Constructor ====================
     public Jugador(Texture tex, Sound sonidoHerido) {
         this.bucketImage = tex;
@@ -46,9 +45,8 @@ public class Jugador {
     public int getVidas() { return vidas; }
     public int getPuntos() { return puntos; }
     public Rectangle getArea() { return bucket; }
-    public float getCurrentHeight() { return currentHeight; }
     public boolean estaHerido() { return herido; }
-    public int getSandwichCount() { return sandwichCount; }
+
 
     // ==================== Métodos principales ====================
     public void crear() {
@@ -152,9 +150,7 @@ public class Jugador {
         bucketImage.dispose();
     }
 
-    public boolean estaVivo() {
-        return vidas > 0;
-    }
+
 
 
     public void reiniciar() {

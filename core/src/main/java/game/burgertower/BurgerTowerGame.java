@@ -1,3 +1,4 @@
+
 package game.burgertower;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -72,9 +73,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 		font.draw(batch, "Vidas : " + jugador.getVidas(), 720, 475);
 
 		if (!jugador.estaHerido()) {
-			// movimiento del jugador desde teclado
 	        jugador.actualizarMovimiento();
-			// caida de la lluvia
 	        nivel.actualizarMovimiento(jugador);
 		}
 

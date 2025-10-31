@@ -110,10 +110,10 @@ public class Nivel {
         ingredientesCaen.add(nuevoIngrediente);
         lastDropTime = TimeUtils.nanoTime();
     }
-    // Método de actualización totalmente refactorizado
+    // Método de actualización
     public void actualizarMovimiento(Jugador jugador) {
 
-        if (gameOver) return; // si terminó el juego, no seguir
+        if (gameOver) return; // sí terminó el juego, no seguir
         // generar más ingredientes
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) crearIngrediente(); // 1 por segundo
 
@@ -160,7 +160,7 @@ public class Nivel {
             font.draw(batch, "PUNTAJE: " + jugador.getPuntos(), 330, 260);
             font.draw(batch, "Presiona R para reiniciar", 280, 200);
 
-            // Si se presiona R, reiniciar el juego
+            // Sí se presiona R, reiniciar el juego
             if (Gdx.input.isKeyPressed(Input.Keys.R)) {
                 reiniciar(jugador);
             }
