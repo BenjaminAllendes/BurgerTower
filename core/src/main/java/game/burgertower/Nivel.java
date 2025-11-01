@@ -33,6 +33,8 @@ public class Nivel {
 
     private Sound dropSound;
     private Music rainMusic;
+    private Sound biteSound;
+    private Sound GameOverSound;
 
     // NUEVO: fuente y estado de juego
     private BitmapFont font;
@@ -41,7 +43,7 @@ public class Nivel {
 
     // Constructor actualizado para recibir las nuevas texturas
     public Nivel(Texture texLechuga, Texture texCarne, Texture texMalo, Texture texPanSup,
-    		Texture texTocino, Texture texTomate, Texture texQueso, Sound ss, Music mm) {
+    		Texture texTocino, Texture texTomate, Texture texQueso, Sound ss, Music mm, Sound bb, Sound gg) {
         this.texLechuga = texLechuga;
         this.texCarne = texCarne;
         this.texMalo = texMalo;
@@ -52,6 +54,8 @@ public class Nivel {
 
         this.rainMusic = mm;
         this.dropSound = ss;
+        this.biteSound = bb;
+        this.GameOverSound = gg;
     }
 
     public void crear() {
@@ -83,17 +87,17 @@ public class Nivel {
             nuevoIngrediente = new IngredienteMalo(texMalo);
         }
         // 20% de chance de ser carne (tipos 3, 4)
-        else if (tipo <= 4) {
-            nuevoIngrediente = new IngredienteBueno(texCarne, 20); // 20 puntos
+        else if (tipo <= 7) {
+            nuevoIngrediente = new IngredienteBueno(texCarne, 20); // 20
         }
         // 20% de chance de ser lechuga (tipos 5, 6)
-        else if (tipo <= 6) {
+        /*else if (tipo <= 6) {
             nuevoIngrediente = new IngredienteBueno(texLechuga, 10); // 10 puntos
         }
         // 10% de chance de ser tocino (tipo 7)
         else if (tipo == 7) {
             nuevoIngrediente = new IngredienteBueno(texTocino, 15); // 15 puntos
-        }
+        }*/
         // 10% de chance de ser queso (tipo 8)
         else if (tipo == 8) {
             nuevoIngrediente = new IngredienteBueno(texQueso, 15); // 15 puntos
@@ -137,14 +141,20 @@ public class Nivel {
                 if (ing instanceof IngredienteBueno) {
                     dropSound.play();
                 }
+                else if (ing instanceof PanSuperior) {
+                    biteSound.play();
+
+                }
 
                 ingredientesCaen.removeIndex(i);
             }
 
             //  DETECTAR GAME OVER
             if (jugador.getVidas() <= 0) {
+                GameOverSound.play();
                 gameOver = true;
                 rainMusic.stop();
+
             }
 
         }

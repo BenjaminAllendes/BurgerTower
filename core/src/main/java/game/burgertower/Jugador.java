@@ -34,6 +34,9 @@ public class Jugador {
     private int sandwichCount = 0;
     private int maxIngredients = 17;       // Limite de ingredientes por sandwich
     private float alturaVisibleIngrediente = 18f;
+    private float multiplicador = 1.0f;
+    private int ingredientsCount = 0;
+
     // ==================== Constructor ====================
     public Jugador(Texture tex, Sound sonidoHerido) {
         this.bucketImage = tex;
@@ -101,10 +104,21 @@ public class Jugador {
             stack.add(ing);
             currentHeight += alturaVisibleIngrediente;
             recalcularHitbox();
+            ingredientsCount++;
 
+            if (ingredientsCount>=10 && ingredientsCount <=16) {
+                multiplicador = 1.5f;
+            }
+
+            else if (ingredientsCount >= 17) {
+                multiplicador = 2.0f;
+
+            }
 
         }
     }
+    public int getCantIng() {return ingredientsCount;}
+
 
     /**
      * Cierra el sandwich al recibir pan superior y aplica puntaje total
@@ -119,11 +133,13 @@ public class Jugador {
             }
         }
 
-        int puntosGanados = valorBase ;
+        int puntosGanados = (int) (valorBase * multiplicador);
         puntos += puntosGanados;
         sandwichCount++;
+        ingredientsCount = 0;
 
         // Reinicia stack con pan inferior
+
         stack.clear();
         currentHeight = 0;
         recalcularHitbox();
@@ -138,12 +154,14 @@ public class Jugador {
         herido = true;
         tiempoHerido = tiempoHeridoMax;
         sonidoHerido.play();
+        ingredientsCount = 0;
     }
 
     public void reset() {
         stack.clear();
         currentHeight = 0;
         recalcularHitbox();
+        multiplicador = 1.0f;
     }
 
     public void destruir() {

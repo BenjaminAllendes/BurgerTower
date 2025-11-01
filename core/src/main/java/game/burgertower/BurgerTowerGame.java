@@ -46,13 +46,15 @@ public class BurgerTowerGame extends ApplicationAdapter {
 	        texQueso = new Texture(Gdx.files.internal("queso.png")) ;
 
 	        Sound hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-	        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+	        Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("pop.mp3"));
 	        Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+            Sound biteSound = Gdx.audio.newSound(Gdx.files.internal("bite.wav"));
+            Sound GameOverSound = Gdx.audio.newSound(Gdx.files.internal("GameOver.mp3"));
 
 	        jugador = new Jugador(texPanInf, hurtSound);
 	        jugador.crear();
 
-	        nivel = new Nivel(texLechuga, texCarne, texMalo, texPanSup, texTocino, texTomate, texQueso, dropSound, rainMusic);
+	        nivel = new Nivel(texLechuga, texCarne, texMalo, texPanSup, texTocino, texTomate, texQueso, dropSound, rainMusic, biteSound, GameOverSound);
 	        nivel.crear();
 
 	        camera = new OrthographicCamera();
@@ -71,6 +73,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
 		//dibujar textos
 		font.draw(batch, "Puntos: " + jugador.getPuntos(), 5, 475);
 		font.draw(batch, "Vidas : " + jugador.getVidas(), 720, 475);
+        font.draw(batch, "Tamaño Torre : " + jugador.getCantIng(), 5, 450);
 
 		if (!jugador.estaHerido()) {
 	        jugador.actualizarMovimiento();
