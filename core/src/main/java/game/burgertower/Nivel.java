@@ -87,17 +87,17 @@ public class Nivel {
             nuevoIngrediente = new IngredienteMalo(texMalo);
         }
         // 20% de chance de ser carne (tipos 3, 4)
-        else if (tipo <= 7) {
+        else if (tipo <= 4) {
             nuevoIngrediente = new IngredienteBueno(texCarne, 20); // 20
         }
         // 20% de chance de ser lechuga (tipos 5, 6)
-        /*else if (tipo <= 6) {
+        else if (tipo <= 6) {
             nuevoIngrediente = new IngredienteBueno(texLechuga, 10); // 10 puntos
         }
         // 10% de chance de ser tocino (tipo 7)
         else if (tipo == 7) {
             nuevoIngrediente = new IngredienteBueno(texTocino, 15); // 15 puntos
-        }*/
+        }
         // 10% de chance de ser queso (tipo 8)
         else if (tipo == 8) {
             nuevoIngrediente = new IngredienteBueno(texQueso, 15); // 15 puntos
