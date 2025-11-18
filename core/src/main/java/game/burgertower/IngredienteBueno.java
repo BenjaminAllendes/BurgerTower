@@ -10,7 +10,9 @@ public class IngredienteBueno extends Ingrediente implements Interactuable {
         super(textura);
         this.valor = valor;
     }
-
+    public void actualizarPosicion(float delta) {
+        area.y -= velocidadCaida * delta;
+    }
     public int getValor() {
         return valor;
     }

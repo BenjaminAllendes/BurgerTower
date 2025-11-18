@@ -19,10 +19,7 @@ public abstract class Ingrediente {
         this.velocidadCaida = 200; // 
     }
 
-    public void actualizarPosicion(float delta) {
-        area.y -= velocidadCaida * delta;
-    }
-
+    public abstract void actualizarPosicion(float delta);
     public void dibujar(SpriteBatch batch) {
         batch.draw(textura, area.x, area.y);
     }
