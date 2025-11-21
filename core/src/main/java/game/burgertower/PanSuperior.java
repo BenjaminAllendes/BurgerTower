@@ -1,9 +1,10 @@
+/*
 package game.burgertower;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 public class PanSuperior extends Ingrediente implements Interactuable {
-	
+
 	private float tiempoVida = 0;
     public PanSuperior(Texture textura) {
         super(textura);
@@ -27,6 +28,30 @@ public class PanSuperior extends Ingrediente implements Interactuable {
     @Override
     public void interactuarCon(Jugador jugador) {
         // Al chocar, le decimos al jugador que "cierre" el sándwich
+        jugador.closeSandwich();
+    }
+}
+*/
+package game.burgertower;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
+
+public class PanSuperior extends Ingrediente implements Interactuable {
+
+    public PanSuperior(Texture textura) {
+        super(textura);
+        this.velocidadCaida = 150;
+    }
+
+    @Override
+    protected float calcularMovimientoHorizontal(float delta) {
+        // Implementación específica: Oscilación suave (Coseno)
+        return MathUtils.cos(tiempoVida * 3) * 150 * delta;
+    }
+
+    @Override
+    public void interactuarCon(Jugador jugador) {
         jugador.closeSandwich();
     }
 }

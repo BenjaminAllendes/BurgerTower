@@ -1,3 +1,4 @@
+
 package game.burgertower;
 
 import com.badlogic.gdx.Gdx;
@@ -9,11 +10,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+
 public class Nivel {
 
     private Array<Ingrediente> ingredientesCaen;
     private long lastDropTime;
-    private long lastBreadTime; 
+    private long lastBreadTime;
     private BitmapFont font;
     private boolean gameOver = false;
 
@@ -22,7 +24,7 @@ public class Nivel {
 
     public void crear() {
         ingredientesCaen = new Array<>();
-        crearIngrediente(); 
+        crearIngrediente();
         lastBreadTime = TimeUtils.nanoTime();
 
         font = new BitmapFont();
@@ -35,7 +37,7 @@ public class Nivel {
 
     private void crearIngrediente() {
         Ingrediente nuevoIngrediente;
-        int tipo = MathUtils.random(1, 10); 
+        int tipo = MathUtils.random(1, 10);
 
         // Referencia rápida al Singleton
         Recursos r = Recursos.getInstancia();
@@ -72,8 +74,8 @@ public class Nivel {
     }
 
     public void actualizarMovimiento(Jugador jugador) {
-        if (gameOver) return; 
-        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) crearIngrediente(); 
+        if (gameOver) return;
+        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) crearIngrediente();
 
         for (int i = 0; i < ingredientesCaen.size; i++) {
             Ingrediente ing = ingredientesCaen.get(i);
@@ -131,3 +133,4 @@ public class Nivel {
         // No destruimos texturas aquí, lo hace el Singleton
     }
 }
+

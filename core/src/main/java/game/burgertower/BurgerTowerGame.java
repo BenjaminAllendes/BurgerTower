@@ -34,10 +34,10 @@ public class BurgerTowerGame extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
-        
+
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        
+
         // Dibujar textos
         font.draw(batch, "Puntos: " + jugador.getPuntos(), 5, 475);
         font.draw(batch, "Vidas : " + jugador.getVidas(), 720, 475);
@@ -60,7 +60,7 @@ public class BurgerTowerGame extends ApplicationAdapter {
         nivel.destruir();
         batch.dispose();
         font.dispose();
-        
+
         Recursos.getInstancia().dispose();
     }
 }

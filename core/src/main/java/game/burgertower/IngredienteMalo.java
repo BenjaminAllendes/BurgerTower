@@ -1,3 +1,4 @@
+/*
 package game.burgertower;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -17,13 +18,38 @@ public class IngredienteMalo extends Ingrediente implements Interactuable {
 
         // 2. Movimiento Zig-Zag en X
         // MathUtils.sin(tiempo * velocidad) * amplitud
-        float oscilacion = MathUtils.sin(tiempoVida * 10) * 500 * delta; 
+        float oscilacion = MathUtils.sin(tiempoVida * 10) * 500 * delta;
         area.x += oscilacion;
 
         // 3. Evitar que se salga de la pantalla por el zig-zag
         if (area.x < 0) area.x = 0;
         if (area.x > 800 - 64) area.x = 800 - 64;
     }
+    @Override
+    public void interactuarCon(Jugador jugador) {
+        jugador.dañar();
+        jugador.reset();
+    }
+}
+*/
+package game.burgertower;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
+
+public class IngredienteMalo extends Ingrediente implements Interactuable {
+
+    public IngredienteMalo(Texture textura) {
+        super(textura);
+        this.velocidadCaida = 300;
+    }
+
+    @Override
+    protected float calcularMovimientoHorizontal(float delta) {
+        // Implementación específica: Zig-Zag rápido (Seno)
+        return MathUtils.sin(tiempoVida * 10) * 500 * delta;
+    }
+
     @Override
     public void interactuarCon(Jugador jugador) {
         jugador.dañar();
