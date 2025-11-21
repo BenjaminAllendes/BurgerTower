@@ -18,6 +18,8 @@ public class Nivel {
     private long lastBreadTime;
     private BitmapFont font;
     private boolean gameOver = false;
+    private IngredienteFactory factory = new FactoryDefault();
+
 
     public Nivel() {
     }
@@ -44,26 +46,26 @@ public class Nivel {
 
         // Timer pan superior
         if(TimeUtils.nanoTime() - lastBreadTime > 15000000000L) {
-            nuevoIngrediente = new PanSuperior(r.texPanSup);
+            nuevoIngrediente = factory.crearPanSuperior();
             lastBreadTime = TimeUtils.nanoTime();
         }
         else if (tipo <= 2) {
-            nuevoIngrediente = new IngredienteMalo(r.texMalo);
+            nuevoIngrediente = factory.crearIngredienteMalo();
         }
         else if (tipo <= 4) {
-            nuevoIngrediente = new IngredienteBueno(r.texCarne, 20);
+            nuevoIngrediente = factory.crearCarne();
         }
         else if (tipo <= 6) {
-            nuevoIngrediente = new IngredienteBueno(r.texLechuga, 10);
+            nuevoIngrediente = factory.crearLechuga();
         }
         else if (tipo == 7) {
-            nuevoIngrediente = new IngredienteBueno(r.texTocino, 15);
+            nuevoIngrediente = factory.crearTocino();
         }
         else if (tipo == 8) {
-            nuevoIngrediente = new IngredienteBueno(r.texQueso, 15);
+            nuevoIngrediente = factory.crearQueso();
         }
         else {
-            nuevoIngrediente = new IngredienteBueno(r.texTomate, 10);
+            nuevoIngrediente = factory.crearTomate();
         }
 
         nuevoIngrediente.getArea().x = MathUtils.random(0, 800 - 64);
