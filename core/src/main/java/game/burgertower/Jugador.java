@@ -15,7 +15,7 @@ public class Jugador {
     private Rectangle bucket;
     private Texture bucketImage;
     private Sound sonidoHerido;
-    
+
     private int vidas = 3;
     private int puntos = 0;
     private int velx = 400;
@@ -28,13 +28,21 @@ public class Jugador {
     private float currentHeight = 0;
     private int maxIngredients = 17;
     private float alturaVisibleIngrediente = 18f;
-    private float multiplicador = 1.0f;
     private int ingredientsCount = 0;
+
+
+    private CalculadoraPuntaje calculadoraPuntos;
 
     public Jugador() {
         this.bucketImage = Recursos.getInstancia().texPanInf;
         this.sonidoHerido = Recursos.getInstancia().hurtSound;
         this.stack = new ArrayList<>();
+        this.calculadoraPuntos = new PuntajeNormal();
+    }
+
+
+    public void setEstrategiaPuntaje(CalculadoraPuntaje nuevaCalculadora) {
+        this.calculadoraPuntos = nuevaCalculadora;
     }
 
     public int getVidas() { return vidas; }
@@ -84,12 +92,6 @@ public class Jugador {
             currentHeight += alturaVisibleIngrediente;
             recalcularHitbox();
             ingredientsCount++;
-
-            if (ingredientsCount >= 10 && ingredientsCount <= 16) {
-                multiplicador = 1.5f;
-            } else if (ingredientsCount >= 17) {
-                multiplicador = 2.0f;
-            }
         }
     }
 
@@ -103,7 +105,8 @@ public class Jugador {
             }
         }
 
-        int puntosGanados = (int) (valorBase * multiplicador);
+        int puntosGanados = calculadoraPuntos.calcularPuntos(valorBase, ingredientsCount);
+
         puntos += puntosGanados;
         ingredientsCount = 0;
 
@@ -128,7 +131,6 @@ public class Jugador {
         stack.clear();
         currentHeight = 0;
         recalcularHitbox();
-        multiplicador = 1.0f;
     }
 
     public void reiniciar() {
